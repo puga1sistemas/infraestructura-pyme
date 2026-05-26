@@ -1,2 +1,1 @@
-# Configuración del Servidor Web
-En esta sección detallaremos la instalación de Apache/Nginx para la PYME.
+Para este proyecto, David ha decidido que usaremos Apache por su estabilidad.
