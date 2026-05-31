@@ -120,3 +120,43 @@ Certbot configurará automáticamente el VirtualHost HTTPS.
 ## 8. Conclusión
 El servidor web Apache 2.4.60 queda instalado, configurado y preparado para servir contenido de forma segura mediante HTTPS.  
 Este documento forma parte de la infraestructura base de la plataforma.
+
+## 9. Integración con el balanceador HAProxy
+
+El servidor web Apache no recibe tráfico directamente desde los clientes, sino a través del balanceador de carga HAProxy. La integración se realiza de la siguiente forma:
+
+### 9.1. Arquitectura de acceso
+- Los clientes acceden a HAProxy mediante HTTP/HTTPS.
+- HAProxy actúa como frontal y distribuye las peticiones al servidor Apache.
+- Apache solo debe aceptar tráfico desde la IP del balanceador.
+
+### 9.2. Configuración recomendada en Apache
+En el VirtualHost se recomienda añadir:
+
+```
+RemoteIPHeader X-Forwarded-For
+RemoteIPTrustedProxy 192.168.1.10   # IP del balanceador HAProxy
+```
+
+Esto permite que Apache registre correctamente la IP real del cliente.
+
+### 9.3. Backend en HAProxy
+El servidor Apache debe estar definido como backend en HAProxy, por ejemplo:
+
+```
+backend apache_backend
+    server apache1 192.168.1.20:80 check
+```
+
+### 9.4. Consideraciones de seguridad
+- Apache debe estar accesible **solo** desde HAProxy.
+- El firewall debe bloquear accesos directos al puerto 80/443 desde redes externas.
+- Los certificados SSL se gestionan en HAProxy (terminación TLS en el frontal).
+
+### 9.5. Pruebas de integración
+1. Acceder a la IP o dominio del balanceador.
+2. Verificar que Apache responde correctamente a través de HAProxy.
+3. Revisar los logs de Apache para comprobar que la IP del cliente aparece correctamente:
+   ```
+   tail -f /var/log/apache2/empresa_access.log
+   ```
