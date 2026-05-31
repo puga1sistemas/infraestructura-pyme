@@ -12,6 +12,14 @@ La infraestructura se basa en un único servidor Linux que alojará los siguient
 - Sistema de monitorización ligero
 - Scripts o herramientas para copias de seguridad
 
+### Tabla de versiones de software
+
+| Software | Versión | Descripción |
+|----------|---------|-------------|
+| Apache   | 2.4.57  | Servidor web |
+| MySQL    | 8.0     | Base de datos |
+
+
 ### Diagrama lógico
 Se incluirá un **diagrama lógico** que represente la relación entre los componentes principales: servidor web, base de datos, firewall, red interna y servicios auxiliares. Este diagrama se añadirá en la fase final de diseño.
 
