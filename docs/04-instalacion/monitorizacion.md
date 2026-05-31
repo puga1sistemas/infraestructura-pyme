@@ -13,6 +13,8 @@ Este documento describe la solución de monitorización seleccionada para superv
 
 ## 3. Herramienta seleccionada
 Se utilizará Netdata, una herramienta ligera y en tiempo real que permite visualizar métricas del sistema desde un panel web accesible únicamente desde la red local.
+Además de las métricas principales, pueden incluirse métricas adicionales como la temperatura del sistema y estadísticas de I/O, especialmente útiles en entornos físicos o con alta carga.
+
 
 ### Motivos de la elección
 - Instalación sencilla.
@@ -23,6 +25,9 @@ Se utilizará Netdata, una herramienta ligera y en tiempo real que permite visua
 
 ## 4. Instalación prevista
 La instalación se realizará mediante el script oficial de Netdata:
+### Configuración adicional
+Tras la instalación, puede ser necesario ajustar la configuración de Netdata, como limitar el acceso al panel web o activar alertas básicas según las necesidades del sistema.
+
 
 bash <(curl -Ss https://my-netdata.io/kickstart.sh)
 

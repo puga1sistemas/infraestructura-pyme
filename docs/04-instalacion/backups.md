@@ -38,6 +38,9 @@ mkdir -p /var/backups/$FECHA
 # Backup de la base de datos
 mysqldump --all-databases > /var/backups/$FECHA/bbdd.sql
 
+> Nota: este volcado incluye las bases de datos, pero en algunos entornos puede ser necesario realizar un backup adicional de la tabla `mysql` si se requiere conservar usuarios y privilegios.
+
+
 # Backup de la aplicación web
 tar -czf /var/backups/$FECHA/www.tar.gz /var/www/html
 
@@ -62,6 +65,8 @@ Para restaurar:
 
 3. Restaurar configuraciones:
    tar -xzf configs.tar.gz -C /
+
+> Advertencia: la restauración sobrescribe las bases existentes si ya están creadas, por lo que debe ejecutarse con precaución en entornos de producción.
 
 ## 8. Conclusión
 El sistema de copias de seguridad propuesto es sencillo, automatizado y suficiente para las necesidades de la PYME, permitiendo una recuperación rápida ante fallos.
