@@ -1,51 +1,47 @@
 # 02 - Diseño de la infraestructura
 
 ## 1. Introducción
-Este documento describe el diseño técnico de la infraestructura LAMP solicitada por el cliente, incluyendo el diagrama de red lógico y los componentes principales del sistema.
+Este documento describe el diseño técnico de la infraestructura necesaria para desplegar una aplicación web basada en una pila LAMP, incluyendo los componentes de red, seguridad, monitorización y copias de seguridad.
 
 ## 2. Arquitectura general
-La infraestructura se basa en un único servidor Linux que aloja:
-- Servidor web Apache 2.4.x
-- Base de datos MariaDB
-- Sistema de monitorización
-- Servicio SSH para administración
-- Firewall UFW
+La infraestructura se basa en un único servidor Linux que alojará los siguientes componentes:
 
-## 3. Componentes del sistema
-- **Servidor físico/virtual**: Ubuntu Server 22.04 LTS
-- **Red local**: 192.168.1.0/24
-- **IP del servidor**: 192.168.1.50
-- **Puertos expuestos**:
-  - 22 (SSH)
+- Servidor web Apache 2.4.x
+- Base de datos MariaDB/MySQL
+- Servicio SSH para administración remota
+- Sistema de monitorización ligero
+- Scripts o herramientas para copias de seguridad
+
+### Diagrama lógico
+Se incluirá un **diagrama lógico** que represente la relación entre los componentes principales: servidor web, base de datos, firewall, red interna y servicios auxiliares. Este diagrama se añadirá en la fase final de diseño.
+
+## 3. Diseño de red
+- El servidor estará conectado a la red interna de la empresa.
+- Se utilizará una IP estática.
+- El firewall permitirá únicamente los puertos necesarios:
   - 80 (HTTP)
   - 443 (HTTPS)
-- **Almacenamiento**:
-  - `/var/www/html` para la aplicación web
-  - `/var/backups` para copias de seguridad
-  - `/var/log` para registros del sistema
+  - 22 (SSH)
 
-## 4. Diagrama de red (lógico)
+## 4. Diseño de seguridad
+- Acceso SSH restringido a claves públicas.
+- Firewall configurado con reglas mínimas necesarias.
+- Actualizaciones de seguridad automáticas activadas.
 
-[Usuarios LAN] ----> [Switch] ----> [Servidor LAMP]
-                                   |-- Apache (80/443)
-                                   |-- MariaDB
-                                   |-- SSH (22)
-                                   |-- Monitorización
-                                   |-- Firewall UFW
+### Endurecimiento básico del servidor
+Además de las medidas anteriores, se considerarán acciones de **endurecimiento básico**, como:
+- Deshabilitar el acceso SSH del usuario root.
+- Configurar herramientas como *fail2ban* para mitigar intentos de acceso no autorizado.
 
-## 5. Flujo de funcionamiento
-1. Los usuarios acceden a la aplicación web desde la red local.
-2. Apache procesa las peticiones y consulta la base de datos cuando es necesario.
-3. El sistema de monitorización registra métricas del servidor.
-4. El firewall controla el tráfico entrante.
-5. Las copias de seguridad se generan de forma programada.
+## 5. Diseño de monitorización
+- Instalación de una herramienta ligera como Netdata o Node Exporter.
+- Configuración de alertas básicas.
+- Visualización del estado del sistema en tiempo real.
 
-## 6. Justificación del diseño
-- Un único servidor simplifica la administración.
-- Apache y MariaDB son tecnologías maduras y ampliamente soportadas.
-- La red local proporciona baja latencia.
-- La monitorización permite detectar fallos rápidamente.
-- La estructura es escalable: se puede añadir un balanceador o separar la base de datos en el futuro.
+## 6. Diseño de copias de seguridad
+- Copias automáticas de la base de datos mediante `mysqldump`.
+- Copias del contenido web mediante `tar` o herramientas equivalentes.
+- Almacenamiento local y posibilidad de exportación externa.
 
 ## 7. Conclusión
-El diseño propuesto cumple con los requisitos del cliente y establece una base sólida para el despliegue de la infraestructura. En fases posteriores se documentará la instalación y operación del sistema.
+El diseño propuesto establece una infraestructura sencilla, segura y adecuada para las necesidades de la empresa. El siguiente paso será la implementación y validación del entorno.

@@ -13,6 +13,12 @@ La empresa es una PYME con aproximadamente 15 empleados que requiere una infraes
 - Debe existir un sistema de monitorización que permita detectar fallos o caídas del servicio.
 - Se deben generar copias de seguridad automáticas de la base de datos y del contenido web.
 
+### Prioridad de requisitos
+Para facilitar la planificación, los requisitos se clasifican en:
+- **Críticos:** necesarios para garantizar el funcionamiento básico del sistema.
+- **Importantes:** mejoran la operación diaria, pero no bloquean el servicio.
+- **Opcionales:** aportan valor añadido y pueden implementarse en fases posteriores.
+
 ## 4. Requisitos técnicos
 - Servidor web basado en Apache 2.4.x.
 - Base de datos MariaDB o MySQL.
@@ -38,5 +44,10 @@ La empresa es una PYME con aproximadamente 15 empleados que requiere una infraes
 - La monitorización debe generar alertas básicas.
 - Las copias de seguridad deben poder restaurarse sin intervención compleja.
 
-## 8. Conclusión
+## 8. Riesgos y limitaciones
+- Dependencia de servicios externos para actualizaciones y repositorios.
+- Posibles cuellos de botella si la carga de trabajo crece por encima de lo previsto.
+- Necesidad de endurecimiento adicional del servidor para minimizar riesgos de seguridad.
+
+## 9. Conclusión
 Los requisitos definidos permiten establecer una base clara para el diseño de la infraestructura. A partir de este análisis se elaborará el documento de diseño técnico y el diagrama de red correspondiente.
