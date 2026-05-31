@@ -6,6 +6,7 @@ Este documento describe el diseño técnico de la infraestructura necesaria para
 ## 2. Arquitectura general
 La infraestructura se basa en un único servidor Linux que alojará los siguientes componentes:
 
+- Balanceador de carga HAProxy situado delante del servidor web para gestionar el tráfico entrante y permitir futuras ampliaciones del servicio.
 - Servidor web Apache 2.4.x
 - Base de datos MariaDB/MySQL
 - Servicio SSH para administración remota
@@ -16,6 +17,7 @@ La infraestructura se basa en un único servidor Linux que alojará los siguient
 
 | Software | Versión | Descripción |
 |----------|---------|-------------|
+| HAProxy  | 2.x     | Balanceador de carga frontal |
 | Apache   | 2.4.60  | Servidor web |
 | MySQL    | 8.0     | Base de datos |
 | Certbot  | 2.9     | SSL/TLS automático |
@@ -23,6 +25,19 @@ La infraestructura se basa en un único servidor Linux que alojará los siguient
 
 ### Diagrama lógico
 Se incluirá un **diagrama lógico** que represente la relación entre los componentes principales: servidor web, base de datos, firewall, red interna y servicios auxiliares. Este diagrama se añadirá en la fase final de diseño.
+
+### Integración del balanceador HAProxy
+
+El diseño se amplía para incluir un **balanceador de carga HAProxy** situado delante del servidor web Apache. La relación entre componentes queda así:
+
+- Clientes (HTTP/HTTPS)
+  → **Balanceador HAProxy**
+  → Servidor web Apache
+  → Base de datos MySQL/MariaDB
+  → Servicios auxiliares (monitorización y copias de seguridad)
+
+El balanceador actúa como punto de entrada único y permite escalar horizontalmente el servicio web en el futuro.
+
 
 ## 3. Diseño de red
 - El servidor estará conectado a la red interna de la empresa.
