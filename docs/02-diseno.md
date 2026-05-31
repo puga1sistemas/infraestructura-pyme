@@ -16,8 +16,9 @@ La infraestructura se basa en un único servidor Linux que alojará los siguient
 
 | Software | Versión | Descripción |
 |----------|---------|-------------|
-| Apache   | 2.4.60  | Servidor web |
+| Apache   | 2.4.59  | Servidor web |
 | MySQL    | 8.0     | Base de datos |
+| Certbot  | 2.9     | SSL/TLS automático |
 
 
 ### Diagrama lógico
